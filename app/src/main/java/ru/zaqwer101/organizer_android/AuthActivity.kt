@@ -90,12 +90,10 @@ class AuthActivity : AppCompatActivity() {
             password = editTextPassword.text.toString()
             if (user == "" || password == "" || serverAddress == "")
             {
-                Toast.makeText(applicationContext, "ERROR", Toast.LENGTH_LONG).show()
-//                finish()
+                Toast.makeText(applicationContext, "ERROR", Toast.LENGTH_SHORT).show()
             }
             else
             {
-                var response: String = ""
                 val params = HashMap<String,String>()
                 params["user"] = user
                 params["password"] = password
@@ -104,7 +102,7 @@ class AuthActivity : AppCompatActivity() {
                 var out = httpRequest(params, this, applicationContext, serverAddress,
                     object : VolleyCallback {
                         override fun onSuccessResponse(result: JSONObject) {
-                            Toast.makeText(applicationContext, result.toString(), Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, result.toString(), Toast.LENGTH_SHORT).show()
                         }
                     },
                     Request.Method.POST)
@@ -113,6 +111,7 @@ class AuthActivity : AppCompatActivity() {
                 var gson = Gson()
                 var jsonString: String = gson.toJson(authInfoData)
                 saveJsonToFile(applicationContext, "auth_info.json", jsonString)
+                finish()
             }
         }
     }
