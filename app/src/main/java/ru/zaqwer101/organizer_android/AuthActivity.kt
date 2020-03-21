@@ -18,9 +18,7 @@ class AuthActivity : AppCompatActivity() {
     lateinit var editTextUsername: EditText
     lateinit var editTextPassword: EditText
     lateinit var buttonApply: Button
-    var address: String = ""
-    var user: String = ""
-    var password: String = ""
+
 
     fun trustAll()
     {
@@ -69,12 +67,28 @@ class AuthActivity : AppCompatActivity() {
         editTextAddress = findViewById(R.id.editTextAddress)
         editTextPassword = findViewById(R.id.editTextPassword)
         editTextUsername = findViewById(R.id.editTextUsername)
+
+        // пытаемся загрузить информацию из файла
+        val data = loadJsonFromFile(this, "auth_info.json")
+        if (data != null)
+        {
+            val jsonData = JSONObject(data)
+            user = jsonData["user"].toString()
+            password = jsonData["password"].toString()
+            serverAddress = jsonData["serverAddress"].toString()
+        }
+
+        editTextUsername.setText(user)
+        editTextPassword.setText(password)
+        editTextAddress.setText(serverAddress)
+
+
         buttonApply = findViewById(R.id.buttonApply)
         buttonApply.setOnClickListener {
-            address = editTextAddress.text.toString()
+            serverAddress = editTextAddress.text.toString()
             user = editTextUsername.text.toString()
             password = editTextPassword.text.toString()
-            if (user == "" || password == "" || address == "")
+            if (user == "" || password == "" || serverAddress == "")
             {
                 Toast.makeText(applicationContext, "ERROR", Toast.LENGTH_LONG).show()
 //                finish()
@@ -85,8 +99,9 @@ class AuthActivity : AppCompatActivity() {
                 val params = HashMap<String,String>()
                 params["user"] = user
                 params["password"] = password
+                params["serverAddress"] = serverAddress
 
-                var out = httpRequest(params, this, applicationContext, address,
+                var out = httpRequest(params, this, applicationContext, serverAddress,
                     object : VolleyCallback {
                         override fun onSuccessResponse(result: JSONObject) {
                             Toast.makeText(applicationContext, result.toString(), Toast.LENGTH_LONG).show()
@@ -94,9 +109,9 @@ class AuthActivity : AppCompatActivity() {
                     },
                     Request.Method.POST)
 
-                var userData: User = User(user, password)
+                var authInfoData: AuthInfo = AuthInfo(user, password, serverAddress)
                 var gson = Gson()
-                var jsonString: String = gson.toJson(userData)
+                var jsonString: String = gson.toJson(authInfoData)
                 saveJsonToFile(applicationContext, "auth_info.json", jsonString)
             }
         }

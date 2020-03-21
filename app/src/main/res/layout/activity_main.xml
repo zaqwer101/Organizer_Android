@@ -15,6 +15,7 @@
         tools:layout_editor_absoluteX="1dp">
 
         <LinearLayout
+            android:id="@+id/mainLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
@@ -24,7 +25,7 @@
         android:id="@+id/testButton"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="Тестовая кнопка"
+        android:text="@string/button_add_new"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

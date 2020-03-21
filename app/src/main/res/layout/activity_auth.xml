@@ -14,7 +14,6 @@
         android:ems="10"
         android:hint="Адрес сервера"
         android:inputType="textUri"
-        android:text="192.168.0.2"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="110dp" />
 
@@ -37,7 +36,6 @@
         android:ems="10"
         android:hint="Имя пользователя"
         android:inputType="textPersonName"
-        android:text="zaqwer101"
         app:layout_constraintTop_toBottomOf="@+id/editTextAddress"
         tools:layout_editor_absoluteX="110dp" />
 
@@ -49,7 +47,6 @@
         android:ems="10"
         android:hint="Пароль"
         android:inputType="text|textPassword"
-        android:text="1234"
         app:layout_constraintTop_toBottomOf="@+id/editTextUsername"
         tools:layout_editor_absoluteX="110dp" />
 

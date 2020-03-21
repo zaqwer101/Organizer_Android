@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Organizer_Android</string>
     <string name="menu_item_serversettings">Настройки сервера</string>
+    <string name="button_add_new">Добавить</string>
 </resources>

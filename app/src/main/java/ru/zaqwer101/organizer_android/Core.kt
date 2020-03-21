@@ -12,8 +12,11 @@ import org.json.JSONObject
 import java.io.File
 import java.io.IOException
 
+var serverAddress: String = ""
+var user: String = ""
+var password: String = ""
 
-fun getJsonFromFile(context: Context, fileName: String): String? {
+fun loadJsonFromFile(context: Context, fileName: String): String? {
     val jsonString: String
     try {
         jsonString = File(context.filesDir, fileName).readText()
