@@ -1,0 +1,2 @@
+rootProject.name='Organizer_Android'
+include ':app'
