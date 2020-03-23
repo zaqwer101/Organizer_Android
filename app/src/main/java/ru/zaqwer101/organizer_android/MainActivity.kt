@@ -6,16 +6,20 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity()
 {
     lateinit var testButton: Button
+    lateinit var mainLinearLayout: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        testButton = findViewById(R.id.testButton)
+        mainLinearLayout = findViewById(R.id.mainLinearLayout)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

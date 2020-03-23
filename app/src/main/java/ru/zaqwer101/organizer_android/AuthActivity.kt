@@ -19,44 +19,6 @@ class AuthActivity : AppCompatActivity() {
     lateinit var editTextPassword: EditText
     lateinit var buttonApply: Button
 
-
-    fun trustAll()
-    {
-        try {
-            val trustAllCerts: Array<TrustManager> = arrayOf<TrustManager>(
-                object : X509TrustManager {
-                    val acceptedIssuers: Array<Any?>?
-                        get() = arrayOfNulls(0)
-
-                    override fun checkClientTrusted(
-                        certs: Array<X509Certificate?>?,
-                        authType: String?
-                    ) {
-                    }
-
-                    override fun checkServerTrusted(
-                        certs: Array<X509Certificate?>?,
-                        authType: String?
-                    ) {
-                    }
-
-                    override fun getAcceptedIssuers(): Array<X509Certificate> {
-                        TODO("Not yet implemented")
-                    }
-                }
-            )
-            val sc: SSLContext = SSLContext.getInstance("SSL")
-            sc.init(null, trustAllCerts, SecureRandom())
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory())
-            HttpsURLConnection.setDefaultHostnameVerifier(object : HostnameVerifier {
-                override fun verify(arg0: String?, arg1: SSLSession?): Boolean {
-                    return true
-                }
-            })
-        } catch (e: Exception) {
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         // For testing purposes
         trustAll()
@@ -102,7 +64,7 @@ class AuthActivity : AppCompatActivity() {
                 var out = httpRequest(params, this, applicationContext, serverAddress,
                     object : VolleyCallback {
                         override fun onSuccessResponse(result: JSONObject) {
-                            Toast.makeText(applicationContext, result.toString(), Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(applicationContext, result.toString(), Toast.LENGTH_SHORT).show()
                         }
                     },
                     Request.Method.POST)
@@ -111,7 +73,10 @@ class AuthActivity : AppCompatActivity() {
                 var gson = Gson()
                 var jsonString: String = gson.toJson(authInfoData)
                 saveJsonToFile(applicationContext, "auth_info.json", jsonString)
-                finish()
+                if (checkConnection(this, applicationContext))
+                    finish()
+                else
+                    Toast.makeText(this, "Connection failed", Toast.LENGTH_LONG)
             }
         }
     }
