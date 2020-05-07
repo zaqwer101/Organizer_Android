@@ -8,9 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.google.gson.Gson
 import org.json.JSONObject
-import java.security.SecureRandom
-import java.security.cert.X509Certificate
-import javax.net.ssl.*
 
 
 class AuthActivity : AppCompatActivity() {
@@ -73,7 +70,7 @@ class AuthActivity : AppCompatActivity() {
                 var gson = Gson()
                 var jsonString: String = gson.toJson(authInfoData)
                 saveJsonToFile(applicationContext, "auth_info.json", jsonString)
-                if (checkConnection(this, applicationContext))
+                if (getToken(this, applicationContext) != null)
                     finish()
                 else
                     Toast.makeText(this, "Connection failed", Toast.LENGTH_LONG)

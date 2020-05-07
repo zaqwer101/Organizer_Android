@@ -97,11 +97,11 @@ fun httpRequest(
     VolleySingleton.getInstance(context).addToRequestQueue(request)
 }
 
-fun checkConnection(context: Context, applicationContext: Context): Boolean
+fun getToken(context: Context, applicationContext: Context): String?
 {
     if (serverAddress == "" || user == "" || password == "")
     {
-        return false
+        return null
     }
     var token: String = ""
     val requestParams = HashMap<String, String>()
@@ -115,5 +115,5 @@ fun checkConnection(context: Context, applicationContext: Context): Boolean
         }
     }, Request.Method.POST)
 
-    return token != ""
+    return token
 }
